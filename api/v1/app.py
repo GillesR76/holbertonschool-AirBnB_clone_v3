@@ -17,7 +17,7 @@ def remove_session(exception):
 
 
 @app.errorhandler(404)
-def not_found():
+def not_found(e):
     """return a json formatted 404 status code response"""
     return jsonify({"error": "Not found"}), 404
 
