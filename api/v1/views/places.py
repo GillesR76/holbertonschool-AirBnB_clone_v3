@@ -75,7 +75,7 @@ def update_place(place_id):
     place_update = storage.get(Place, place_id)
     if place_update is None:
         return abort(404)
-    request_data = request.get_json()
+    request_data = request.get_json(silent=True)
     if request_data is None:
         return abort(400, 'Not a JSON')
     for key, value in request_data.items():
