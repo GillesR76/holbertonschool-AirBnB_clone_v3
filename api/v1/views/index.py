@@ -19,7 +19,11 @@ def index():
     return jsonify(data)
 
 
+<<<<<<< HEAD
+@app_views.route('/api/v1/stats', strict_slashes=False)
+=======
 @app_views.route('/stats', strict_slashes=False)
+>>>>>>> a899d166868be6fd25ceb154efa98b875ce15f66
 def objects_stats():
     """retrieve the number of each object by type"""
     stats = {"amenities": "Amenity",

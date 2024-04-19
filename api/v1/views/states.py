@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module contains the index view for the API"""
+"""This module contains the states view for the API"""
 
 
 from models.state import State
