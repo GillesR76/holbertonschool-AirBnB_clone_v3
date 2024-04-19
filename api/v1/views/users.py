@@ -54,7 +54,7 @@ def create_user():
         return abort(400, 'Missing password')
     new_user = User(**new_user)
     new_user.save()
-    return make_response(new_user.to_dict()), 201
+    return make_response(new_user.to_dict(), 201)
 
 
 @app_views.route('/users/<user_id>', methods=["PUT"],
