@@ -52,9 +52,8 @@ def create_user():
         return abort(400, 'Missing email')
     if 'password' not in request_data:
         return abort(400, 'Missing password')
-    new_user = User(name=request_data['name'])
-    storage.new(new_user)
-    storage.save()
+    new_user = User(**new_user)
+    new_user.save()
     return make_response(new_user.to_dict()), 201
 
 
@@ -71,5 +70,5 @@ def update_user(user_id):
     for key, value in request_data.items():
         if key not in ['id', 'email', 'created_at', 'updated_at']:
             setattr(user_update, key, value)
-    user_update.save()
+    storage.save()
     return make_response(jsonify(user_update.to_dict()), 200)
