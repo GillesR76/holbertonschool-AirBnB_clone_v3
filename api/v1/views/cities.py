@@ -6,7 +6,7 @@ from models.state import State
 from models.city import City
 from api.v1.views import app_views
 from models import storage
-from flask import jsonify, abort, request
+from flask import jsonify, abort, request, make_response
 
 
 @app_views.route('/states/<state_id>/cities',
@@ -58,8 +58,9 @@ def create_city(state_id):
     if 'name' not in request_data:
         abort(400, 'Missing name')
     new_city = City(name=request_data['name'], state_id=state_id)
-    new_city.save()
-    return jsonify(new_city.to_dict()), 201
+    storage.new(new_city)
+    storage.save()
+    return make_response(jsonify(new_city.to_dict()), 201)
 
 
 @app_views.route('/cities/<city_id>', methods=["PUT"],
@@ -76,4 +77,4 @@ def update_city(city_id):
         if key not in ['id', 'state_id', 'created_at', 'updated_at']:
             setattr(city_update, key, value)
     city_update.save()
-    return jsonify(city_update.to_dict()), 200
+    return make_response(jsonify(city_update.to_dict()), 200)
