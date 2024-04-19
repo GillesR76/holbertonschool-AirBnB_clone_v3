@@ -12,9 +12,9 @@ from flask import jsonify, abort, request, make_response
                  methods=["GET"], strict_slashes=False)
 def all_users():
     """get the list of all users"""
-    users = storage.get(User)
+    users = storage.all(User).values()
     user_list = []
-    for user in users.values():
+    for user in users:
         user_list.append(user.to_dict())
     return jsonify(user_list)
 
@@ -38,7 +38,7 @@ def delete_user(user_id):
         abort(404)
     storage.delete(user)
     storage.save()
-    return jsonify({}), 200
+    return make_response(jsonify({}), 200)
 
 
 @app_views.route('/users', methods=["POST"],
@@ -63,10 +63,10 @@ def update_user(user_id):
     """update a user object"""
     user_update = storage.get(User, user_id)
     if user_update is None:
-        abort(404)
+        return abort(404)
     request_data = request.get_json(silent=True)
     if request_data is None:
-        abort(400, 'Not a JSON')
+        return abort(400, 'Not a JSON')
     for key, value in request_data.items():
         if key not in ['id', 'email', 'created_at', 'updated_at']:
             setattr(user_update, key, value)
