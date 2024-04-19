@@ -14,7 +14,7 @@ def all_states():
     state_list = []
     for state in storage.all(State).values():
         state_list.append(state.to_dict())
-    return jsonify([state_list])
+    return jsonify(state_list)
 
 
 @app_views.route('/api/v1/states/<state_id>',
