@@ -57,7 +57,7 @@ def create_city(state_id):
         abort(400, 'Not a JSON')
     if 'name' not in request_data:
         abort(400, 'Missing name')
-    new_city = City(**request_data)
+    new_city = City(name=request_data['name'], state_id=state_id)
     new_city.save()
     return jsonify(new_city.to_dict()), 201
 
