@@ -8,7 +8,7 @@ from models import storage
 from flask import jsonify, abort, request
 
 
-@app_views.route('/api/v1/states', methods=["GET"], strict_slashes=False)
+@app_views.route('/states', methods=["GET"], strict_slashes=False)
 def all_states():
     """get the list of all State objects"""
     state_list = []
@@ -17,7 +17,7 @@ def all_states():
     return jsonify(state_list)
 
 
-@app_views.route('/api/v1/states/<state_id>',
+@app_views.route('/states/<state_id>',
                  methods=["GET"], strict_slashes=False)
 def state_object(state_id):
     """get a state object"""
@@ -27,7 +27,7 @@ def state_object(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route('/api/v1/states/<state_id>',
+@app_views.route('/states/<state_id>',
                  methods=["DELETE"], strict_slashes=False)
 def delete_state(state_id):
     """delete an object"""
@@ -39,7 +39,7 @@ def delete_state(state_id):
     return jsonify({}), 200
 
 
-@app_views.route('/api/v1/states', methods=["POST"],
+@app_views.route('/states', methods=["POST"],
                  strict_slashes=False)
 def create_state():
     """create a new state object"""
@@ -53,7 +53,7 @@ def create_state():
     return jsonify(new_state.to_dict()), 201
 
 
-@app_views.route('/api/v1/states/<state_id>', methods=["PUT"],
+@app_views.route('/states/<state_id>', methods=["PUT"],
                  strict_slashes=False)
 def update_state(state_id):
     """update a state object"""
