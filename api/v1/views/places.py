@@ -18,7 +18,7 @@ def all_places(city_id):
     if city is None:
         abort(404)
     place_list = []
-    for place in city.place:
+    for place in city.places:
         place_list.append(place.to_dict())
     return jsonify(place_list)
 
@@ -45,7 +45,7 @@ def delete_place(place_id):
     return jsonify({}), 200
 
 
-@app_views.route('cities/<city_id>/places', methods=["POST"],
+@app_views.route('/cities/<city_id>/places', methods=["POST"],
                  strict_slashes=False)
 def create_place(city_id):
     """create a new place object"""

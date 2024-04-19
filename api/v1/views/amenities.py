@@ -50,7 +50,7 @@ def create_amenity():
         abort(400, 'Not a JSON')
     if 'name' not in request_data:
         abort(400, 'Missing name')
-    new_amenity = Amenity(**request_data)
+    new_amenity = Amenity(request_data['name'])
     new_amenity.save()
     return jsonify(new_amenity.to_dict()), 201
 
