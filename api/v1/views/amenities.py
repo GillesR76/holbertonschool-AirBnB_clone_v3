@@ -5,7 +5,7 @@
 from models.amenity import Amenity
 from api.v1.views import app_views
 from models import storage
-from flask import jsonify, abort, request
+from flask import jsonify, abort, request, make_response
 
 
 @app_views.route('/amenities',
@@ -50,9 +50,10 @@ def create_amenity():
         abort(400, 'Not a JSON')
     if 'name' not in request_data:
         abort(400, 'Missing name')
-    new_amenity = Amenity(request_data['name'])
-    new_amenity.save()
-    return jsonify(new_amenity.to_dict()), 201
+    new_amenity = Amenity(name=request_data['name'])
+    storage.new(new_amenity)
+    storage.save()
+    return make_response(jsonify(new_amenity.to_dict()), 201)
 
 
 @app_views.route('/amenities/<amenity_id>', methods=["PUT"],
@@ -69,4 +70,4 @@ def update_amenity(amenity_id):
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(amenity_update, key, value)
     amenity_update.save()
-    return jsonify(amenity_update.to_dict()), 200
+    return make_response(jsonify(amenity_update.to_dict()), 200)
