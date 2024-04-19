@@ -36,7 +36,7 @@ def review_object(review_id):
 
 @app_views.route('/reviews/<review_id>',
                  methods=["DELETE"], strict_slashes=False)
-def delete_place(review_id):
+def review_delete(review_id):
     """delete a review object"""
     review = storage.get(Review, review_id)
     if review is None:
@@ -48,7 +48,7 @@ def delete_place(review_id):
 
 @app_views.route('/places/<place_id>/reviews', methods=["POST"],
                  strict_slashes=False)
-def create_place(place_id):
+def review_create(place_id):
     """create a new review object"""
     place = storage.get(Place, place_id)
     if place is None:
@@ -70,7 +70,7 @@ def create_place(place_id):
 
 @app_views.route('/reviews/<review_id>', methods=["PUT"],
                  strict_slashes=False)
-def update_place(review_id):
+def review_update(review_id):
     """update a review object"""
     review_update = storage.get(Review, review_id)
     if review_update is None:
