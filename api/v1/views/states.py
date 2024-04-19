@@ -21,24 +21,22 @@ def all_states():
                  methods=["GET"], strict_slashes=False)
 def state_object(state_id):
     """get a state object"""
-    states = storage.all(State).values()
-    for state in states:
-        if state_id == state.id:
-            return jsonify(state.to_dict())
-    abort(404)
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    return jsonify(state.to_dict())
 
 
 @app_views.route('/api/v1/states/<state_id>',
                  methods=["DELETE"], strict_slashes=False)
 def delete_state(state_id):
     """delete an object"""
-    states = storage.all(State).values()
-    for state in states:
-        if state_id == state.id:
-            storage.delete(state)
-            storage.save
-            return jsonify({}), 200
-    abort(404)
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    storage.delete(state)
+    storage.save()
+    return jsonify({}), 200
 
 
 @app_views.route('/api/v1/states', methods=["POST"],
@@ -59,12 +57,7 @@ def create_state():
                  strict_slashes=False)
 def update_state(state_id):
     """update a state object"""
-    states = storage.all(State).values()
-    state_update = None
-    for state in states:
-        if state_id == state.id:
-            state = state_update
-            break
+    state_update = storage.get(State, state_id)
     if state_update is None:
         abort(404)
     request_data = request.get_json()
