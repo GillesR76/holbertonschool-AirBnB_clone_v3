@@ -68,7 +68,7 @@ def create_place(place_id):
     return jsonify(new_review.to_dict()), 201
 
 
-@app_views.route('//reviews/<review_id>', methods=["PUT"],
+@app_views.route('/reviews/<review_id>', methods=["PUT"],
                  strict_slashes=False)
 def update_place(review_id):
     """update a review object"""
