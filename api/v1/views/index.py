@@ -12,14 +12,14 @@ from models.state import State
 from models.user import User
 
 
-@app_views.route('/status')
+@app_views.route('/status', strict_slashes=False)
 def index():
     """new route to display 'status': 'OK'"""
     data = {'status': 'OK'}
     return jsonify(data)
 
 
-@app_views.route('/api/v1/stats')
+@app_views.route('/api/v1/stats', strict_slashes=False)
 def objects_stats():
     """retrieve the number of each object by type"""
     stats = {
