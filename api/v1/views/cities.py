@@ -17,7 +17,7 @@ def all_cities(state_id):
     if state is None:
         abort(404)
     city_list = []
-    for city in state.city:
+    for city in state.cities:
         city_list.append(city.to_dict())
     return jsonify(city_list)
 
